@@ -1,6 +1,5 @@
 from django.shortcuts import render
 import requests
-import json
 
 class Data(object):
     def __init__(self, address, rating, review_count, link, name, image, score):
@@ -14,9 +13,8 @@ class Data(object):
 
 # Create your views here.
 def index(request):
-    location = request.GET.get('location')
+    location = request.GET.get('location') or 'New York'
     results = call_api(location)
-    print(results)
     return render(request, 'index.html', {'location_fill' : location, 'parking' : results})
 
 def call_api(location):
@@ -26,7 +24,6 @@ def call_api(location):
     response = requests.request('GET', 'https://api.yelp.com/v3/businesses/search?categories=parking&location='+location,
                                 headers=headers)
     if response.status_code != 200:
-        print(response.content)
         return None
 
     response = response.json()['businesses']
