@@ -3,15 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
 <h1>Welcome to AirGarage!</h1>
 <form action="/">
-  <label for="location">Location</label><br>
+    <label for="location">Location</label><br>
     <br><br>
-  <input type="text" id="location" name="location" value="{{ location_fill }}"><br>
+    <input type="text" id="location" name="location" value="{{ location_fill }}"><br>
     <br><br>
-  <input type="submit" value="Submit">
+    <input type="submit" value="Submit">
 </form>
+
+<br>
+<br>
+<br>
+<p>Results:</p>
+{% for obj in parking %}
+<img src="{{ obj.image }}" height="100">
+<p>Name and Link: <a href="{{ obj.link }}">{{ obj.name }}</a></p>
+<p>Address: {{ obj.address }}</p>
+<p>Rating: {{ obj.rating }}</p>
+<p>Review Count: {{ obj.review_count }}</p>
+<p>Score: {{ obj.score }}</p>
+<br>
+<br>
+<br>
+{% endfor %}
+
 </body>
 </html>
